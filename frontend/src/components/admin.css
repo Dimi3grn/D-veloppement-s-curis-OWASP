@@ -1,0 +1,22 @@
+/* Styles de l'espace admin. Réutilise les variables :root définies dans App.css. */
+.admin { max-width: 920px; }
+.admin-h2 {
+  font-family: var(--serif); color: var(--heading);
+  font-size: 20px; font-weight: 600; margin: 38px 0 14px;
+}
+.admin-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.admin-table th, .admin-table td {
+  border: 1px solid var(--line); padding: 8px 12px;
+  text-align: left; vertical-align: middle;
+}
+.admin-table th {
+  color: var(--muted); font-weight: 600; background: var(--line-soft);
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+}
+.admin-table td button { padding: 4px 11px; font-size: 13px; }
+.admin-action { font-family: var(--mono); font-size: 12px; color: var(--text); }
+.admin-action.bad { color: var(--danger); }
+.admin-action.good { color: var(--ok); }
+.state-on { color: var(--ok); }
+.state-off { color: var(--danger); }
+.admin-ip { font-family: var(--mono); font-size: 12px; color: var(--faint); }

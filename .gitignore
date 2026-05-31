@@ -1,0 +1,25 @@
+# Base de données (contient des données, ne JAMAIS versionner)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Secrets / configuration locale
+.env
+*.env
+
+# Dépendances
+node_modules/
+
+# Build front
+dist/
+
+# Binaires Go compilés
+backend/notevault
+backend/notevault.exe
+
+# Journaux d'audit de l'outil de navigation (peuvent contenir des saisies sensibles)
+.gstack/
+
+# Divers
+.DS_Store

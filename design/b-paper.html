@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>B — Papier clair</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f6f3;
+    --side: #efedea;
+    --line: #e2dfd9;
+    --text: #2b2b2b;
+    --muted: #8a857c;
+    --heading: #1a1a1a;
+    --accent: #b4452f;
+    --code-bg: #ecebe7;
+  }
+  body { background: var(--bg); color: var(--text); font-family: Charter, Georgia, 'Times New Roman', serif; font-size: 17px; line-height: 1.75; height: 100vh; display: grid; grid-template-columns: 240px 1fr; }
+
+  aside { background: var(--side); border-right: 1px solid var(--line); padding: 22px 16px; font-family: -apple-system, system-ui, sans-serif; }
+  .brand { font-size: 18px; font-weight: 700; color: var(--heading); margin-bottom: 24px; font-family: Charter, Georgia, serif; }
+  .col { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 16px 6px 8px; font-weight: 600; }
+  .item { padding: 6px 8px; color: #4a463f; font-size: 14px; cursor: pointer; border-radius: 2px; }
+  .item:hover { background: #e6e3dd; }
+  .item.active { color: var(--heading); font-weight: 600; box-shadow: inset 2px 0 0 var(--accent); }
+
+  main { overflow-y: auto; }
+  .doc { max-width: 680px; margin: 0 auto; padding: 64px 40px; }
+  h1 { font-size: 38px; font-weight: 700; color: var(--heading); line-height: 1.2; }
+  .meta { color: var(--muted); font-size: 14px; font-family: -apple-system, system-ui, sans-serif; margin-top: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+  h2 { font-size: 25px; font-weight: 700; color: var(--heading); margin: 36px 0 10px; }
+  p { margin: 14px 0; }
+  ul { margin: 14px 0 14px 24px; }
+  li { margin: 6px 0; }
+  code { font-family: 'SF Mono', Menlo, monospace; font-size: 14px; background: var(--code-bg); padding: 2px 6px; border-radius: 3px; }
+  pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 4px; padding: 14px 18px; margin: 18px 0; overflow-x: auto; font-size: 14px; }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 3px solid var(--accent); padding: 6px 18px; margin: 20px 0; color: #6b665d; font-style: italic; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+  <aside>
+    <div class="brand">NoteVault</div>
+    <div class="item active">＋ Nouvelle note</div>
+    <div class="col">Mes notes</div>
+    <div class="item active">Notes de réunion — Sprint 3</div>
+    <div class="item">Idées produit</div>
+    <div class="item">Veille technique</div>
+    <div class="col">Partagées avec moi</div>
+    <div class="item">Specs API (de Bob)</div>
+  </aside>
+  <main>
+    <div class="doc">
+      <h1>Notes de réunion — Sprint 3</h1>
+      <div class="meta">Modifié il y a 2 heures · Privée</div>
+      <h2>Objectifs</h2>
+      <p>Cadrer le périmètre du sprint et lever les blocages côté authentification. La priorité reste la stabilité avant d'ajouter de nouvelles fonctionnalités.</p>
+      <ul>
+        <li>Finaliser le contrôle d'accès sur les notes partagées</li>
+        <li>Migrer la base vers le nouveau schéma</li>
+        <li>Préparer la démo de fin de sprint</li>
+      </ul>
+      <h2>Commandes utiles</h2>
+      <p>Pour reconstruire le projet en local :</p>
+      <pre><code>npm run build
+go run main.go</code></pre>
+      <blockquote>Ne pas oublier de taguer la release avant le déploiement de vendredi.</blockquote>
+    </div>
+  </main>
+</body>
+</html>
