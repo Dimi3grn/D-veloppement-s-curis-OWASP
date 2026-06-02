@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"         // lecture ligne par ligne du fichier .env
 	"database/sql"  // le type *sql.DB
 	"encoding/json" // pour transformer des structures Go en JSON
 	"log"           // pour afficher des messages dans la console
 	"net/http"      // le serveur web (bibliothèque standard, zéro dépendance)
 	"os"            // lecture des variables d'environnement
+	"strings"       // découpage des lignes KEY=VALUE
 	"time"          // durées (fenêtre du rate-limiter)
 
 	"notevault/internal/admin"      // espace admin + journaux
@@ -14,6 +16,35 @@ import (
 	"notevault/internal/middleware" // headers de sécurité, CORS, rate-limit
 	"notevault/internal/notes"      // CRUD des notes + contrôle d'accès
 )
+
+// loadDotEnv charge un fichier .env (lignes KEY=VALUE) dans les variables
+// d'environnement du processus. Go ne le fait PAS automatiquement (contrairement à
+// Node + dotenv), donc on l'écrit nous-mêmes. Une vraie variable d'environnement
+// déjà définie n'est jamais écrasée (priorité à l'environnement réel).
+func loadDotEnv(path string) {
+	f, err := os.Open(path)
+	if err != nil {
+		return // pas de .env => on utilise l'environnement / les valeurs de repli
+	}
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue // ligne vide ou commentaire
+		}
+		key, value, ok := strings.Cut(line, "=")
+		if !ok {
+			continue
+		}
+		key = strings.TrimSpace(key)
+		value = strings.Trim(strings.TrimSpace(value), `"'`) // retire guillemets éventuels
+		if _, exists := os.LookupEnv(key); !exists {
+			os.Setenv(key, value)
+		}
+	}
+}
 
 // getenvDefault renvoie la variable d'environnement key, ou fallback si elle est vide.
 func getenvDefault(key, fallback string) string {
@@ -67,6 +98,9 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// On charge le fichier .env (s'il existe) avant tout le reste.
+	loadDotEnv(".env")
+
 	// On ouvre (et crée si besoin) la base de données SQLite.
 	// Le fichier "notevault.db" sera créé à côté de l'exécutable.
 	database, err := db.Open("notevault.db")
